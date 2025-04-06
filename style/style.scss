@@ -1,0 +1,281 @@
+@font-face {
+    font-family: 'Actay';
+    src: url('./fonts/Actay-Regular.otf');
+}
+@font-face {
+    font-family: 'Actay Wide';
+    src: url('./fonts/ActayWide-Bold.otf');
+}
+@font-face {
+    font-family: 'Actay-Thin';
+    src: url('./fonts/ActayCondensed-Thin.otf');
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-image: url('./img/2d25763f1aff686e7b2721d0055ac950.jpg');
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-size: cover;
+    background-origin: border-box;
+    font-family: 'Actay';
+    color: white;
+    width: 100vw;
+    height: 100vh;
+}
+
+@mixin headers ($display, $background-color) {
+    max-width: 100%;
+    padding: 5%;
+    display: $display;
+    background-color: $background-color;
+    @if $display == grid and $background-color == none { 
+        grid-template-columns: 20% 60% 20%;
+        color: white;
+        position: static;
+        grid-template-rows: none;
+        height: 10%;
+    }
+    @else if $display == grid and $background-color == white {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        width: 100%;
+        position: fixed;
+        color: black;
+        top: 0;
+        height: auto;
+        z-index: 1000000;
+        padding: 5%; 
+    }
+    @else {
+        color: white;
+        position: static;
+        grid-template-columns: none;
+        grid-template-rows: none;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 10%;
+    }
+}
+
+header {
+    @include headers(grid, none);
+}
+.smallheader
+{
+    @include headers(flex, none);
+}
+.smallheader > svg:hover {
+    cursor: pointer;
+}
+
+.whiteboard {
+    @include headers(grid, white)
+}
+.whiteboard > :not(#title) {
+    text-align: center;
+}
+
+.lm {
+    height: 2em; 
+    margin-top: 2%;
+}
+.lm:last-of-type {
+    margin-bottom: 5%;
+}
+#title {
+    width: 10%;
+    display: flex;
+    font-size: 1em;
+    font-family: 'Actay';
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#title > span:first-of-type {
+    font-size: 2em;
+    font-family: 'Actay Wide';
+}
+.close {
+    margin-right: 5%;
+    cursor: pointer;
+}
+
+
+#loren_ipsum {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 2em;
+    font-family: 'Actay-Thin';
+    padding-top: 1.7%;
+}
+#loren_ipsum > span {
+    margin-right: 1%;
+    padding-left: 1%;
+}
+#loren_ipsum_end {
+    cursor: pointer;
+    text-align: center;
+}
+#loren_ipsum_end > span {
+    font-size: 1.5em;
+    font-weight: 400;
+    border-bottom: 1px solid white;
+}
+
+
+main {
+    width: 100vw;
+}
+
+main > div:first-of-type {
+    font-family: 'Actay Wide';
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    font-size: 7em;
+}
+
+@mixin containers ($dispay, $columns, $rows, $margin) {
+    display: $dispay;
+    grid-template-columns: $columns;
+    grid-template-rows: $rows;
+    width: 90%;
+    margin: $margin;
+}
+
+#container {
+    @include containers(grid, 1fr 1fr 1fr 1fr, 2fr 2fr 2fr 2fr, 0 0 0 15%)
+}
+
+#container_mobile {
+    @include containers(block, none, none, 10% 0 0 15%);
+}
+
+@mixin numbers ($justify, $background, $width, $padding, $height, $font) {
+    display: flex;
+    justify-content: $justify;
+    border-radius: 5%;
+    border: 3px solid white;
+    color: #F6FFD2;
+    background-color: $background;
+    text-align: center;
+    width: $width;
+    height: $height;
+    border-radius: 3em 0 3em 0;
+    padding: $padding;
+    font-size: $font;
+    box-shadow: 1px 1px 1px 1px rgb(255, 255, 255);
+    position: relative;
+    z-index: 1;
+}
+
+.number {
+    @include numbers (space-between,  rgba(128, 128, 128, 1), 90%, 3% 0 4% 0, 30%, 1em);
+}
+.number_mobile {
+    flex-direction: column;
+    align-items: center;
+    @include numbers (center,  rgba(128, 128, 128, 0.5), 80%, 3% 0 10% 0, auto, 3em);
+}
+
+@mixin elements ($bottom, $right, $justify-self, $align-self) {
+    position: relative;
+    bottom: $bottom;
+    right: $right;
+    justify-self: $justify-self;
+    align-self: $align-self;
+}
+
+#el_1, #el_6 {
+    @include elements(0, 0, none, flex-end);
+}
+#el_5 {
+    @include elements(0, 66%, none, flex-end);
+}
+#el_2 {
+    @include elements(25%, 0, end, none);
+}
+#el_3 {
+    @include elements(85%, 0, none, none);
+}
+
+@mixin circle ($height, $margin, $padding) {
+    background-color: #5E7600;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 2.5em;
+    width: 25%;
+    height: $height;
+    display: inline-block;
+    border: 1px solid white;
+    margin: $margin;
+    padding: $padding;
+}
+
+.number > span:first-of-type {
+    @include circle(80%, 2% 3% 0 5%, 2% 0 0 0);
+}
+.number_mobile > span:first-of-type {
+    @include circle(70%, 9% 3% 0 5%, 2% 1% 0 0);
+}
+
+@mixin text ($margin, $align) {
+    margin-top: $margin;
+    text-align: $align;
+    line-height: 150%;
+    display: inline-block;
+}
+
+.number > span:nth-of-type(2) {
+    @include text(4%, left);
+}
+
+.number_mobile > span:nth-of-type(2) {
+    @include text(8%, center);
+    font-size: 0.6em;
+    font-weight: 200;
+}
+
+@mixin lines ($left, $top, $justify-self, $align-self, $transform) {
+    position: relative;
+    left: $left;
+    top: $top; 
+    justify-self: $justify-self;
+    align-self: $align-self;
+    transform: $transform;
+}
+#to_4_5 {
+    @include lines(-50%, 15%, end, flex-end, rotate(-5deg));
+}
+#to_5_6 {
+    @include lines(-28%, 8%, start, flex-start, rotate(-14deg));
+}
+#to_3_4 {
+    @include lines(-5%, -55%, end, flex-start, none);
+}
+#to_2_3 {
+    @include lines(5%, -115%, end, flex-end, none);
+}
+
+#buttons {
+    margin-top: 10%;
+    width: 80%;
+    font-size: 2em;
+}
+#buttons > span {
+    display: inline-block;
+}
+.previous {
+    text-align: left;
+    width: 50%;
+}
+.next {
+    text-align: right;
+    width: 50%;
+}
+
